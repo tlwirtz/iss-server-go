@@ -19,7 +19,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
+		http.Error(w, "There was an error with your request", 500)
 		log.Fatal(err)
+		return
 	}
 
 	fmt.Fprintf(w, "%s", body)
