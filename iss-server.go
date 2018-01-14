@@ -12,7 +12,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		http.Error(w, "There was an issue with your request - iss-server-go", 500)
-		log.Fatal(err)
+		log.Println(err)
 		return
 	}
 
@@ -20,8 +20,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
-		http.Error(w, "There was an error with your request - iss-server-go-2", 500)
-		log.Fatal(err)
+		http.Error(w, "There was an error with your request - iss-server-go", 500)
+		log.Println(err)
 		return
 	}
 
@@ -29,7 +29,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Println("Server is up and running!")
+	port := ":8080"
 	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	log.Println("Starting server on port", port)
+	log.Fatal(http.ListenAndServe(port, nil))
 }
