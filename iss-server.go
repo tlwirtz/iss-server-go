@@ -29,7 +29,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	fmt.Println("Server is up and running!")
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
-	log.Println("Server is up and running!")
 }
