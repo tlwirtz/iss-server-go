@@ -1,0 +1,31 @@
+<html>
+
+<head>
+<style>
+  h1 { font-size: 3rem; font-weight: 200}
+  h2 { font-size: 2rem; font-weight: 200 }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif}
+
+</style>
+</head>
+
+<body>
+  <h1>International Space Station Location</h1>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <h2 id="lat"></h2>
+  <h2 id="long"></h2>
+  <script>
+    const sock = new WebSocket("ws://localhost:8080/socket");
+    sock.onopen = (ws, ev) => {
+      sock.onmessage = (ws) => {
+        console.log("message", ws)
+        const data = JSON.parse(ws.data)
+        document.getElementById('lat').textContent = `Latitude: ${data.latitude}`
+        document.getElementById('long').textContent = `Longitude: ${data.longitude}`
+      }
+      sock.send("hello")
+    }
+  </script>
+</body>
+
+</html>
